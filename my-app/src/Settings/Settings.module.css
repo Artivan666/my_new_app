@@ -1,0 +1,6 @@
+.settins {
+  border: 1px solid black;
+  background-color: gray;
+  padding: 10px;
+  grid-area: c;
+}

@@ -2,3 +2,12 @@
   border: 1px solid black;
   padding: 10px;
 }
+
+.nav_item a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav_item a.activeLink {
+  color: red;
+}
