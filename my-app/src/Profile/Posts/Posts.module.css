@@ -1,0 +1,15 @@
+.block_post {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.new_post {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.post_list {
+  border: 1px solid black;
+  padding: 10px;
+}
