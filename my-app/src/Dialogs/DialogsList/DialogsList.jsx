@@ -2,14 +2,11 @@ import Dialog from './Dialog/Dialog'
 import s from './DialogsList.module.css'
 
 const DialogsList = (props) => {
-  return (
-    <div className={s.dialogs_list}>
-      <Dialog id="1" name="Dimuch" />
-      <Dialog id="2" name="Andrew" />
-      <Dialog id="3" name="Sveta" />
-      <Dialog id="4" name="Sasha" />
-    </div>
-  )
+  const dialogs = props.dialogs.map((d) => (
+    <Dialog key={d.id} id={d.id} name={d.name} />
+  ))
+
+  return <div className={s.dialogs_list}>{dialogs}</div>
 }
 
 export default DialogsList

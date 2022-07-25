@@ -5,8 +5,8 @@ import Messages from './Messages/Messages'
 const Dialogs = (props) => {
   return (
     <div className={s.dialogs}>
-      <DialogsList />
-      <Messages />
+      <DialogsList dialogs={props.dialogs} />
+      <Messages messages={props.messages} />
     </div>
   )
 }
