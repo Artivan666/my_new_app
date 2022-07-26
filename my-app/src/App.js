@@ -9,25 +9,36 @@ import Settings from './Settings/Settings'
 
 const App = (props) => {
   return (
-    <BrowserRouter>
-      <div className="app_wrapper">
-        <Header />
-        <Sidebar />
-        <div className="content">
-          <Routes>
-            <Route path="/profile" element={<Profile posts={props.posts} />} />
-            <Route
-              path="/messages"
-              element={
-                <Dialogs dialogs={props.dialogs} messages={props.messages} />
-              }
-            />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </div>
-        <Footer />
+    <div className="app_wrapper">
+      <Header />
+      <Sidebar />
+      <div className="content">
+        <Routes>
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                newPostText={props.state.profilePage.newPostText}
+                updateNewPostText={props.updateNewPostText}
+                addPost={props.addPost}
+                posts={props.state.profilePage.posts}
+              />
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <Dialogs
+                dialogs={props.state.dialogsPage.dialogs}
+                messages={props.state.dialogsPage.messages}
+              />
+            }
+          />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+      <Footer />
+    </div>
   )
 }
 
