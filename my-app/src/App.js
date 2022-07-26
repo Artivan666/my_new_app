@@ -18,9 +18,8 @@ const App = (props) => {
             path="/profile"
             element={
               <Profile
+                dispatch={props.dispatch}
                 newPostText={props.state.profilePage.newPostText}
-                updateNewPostText={props.updateNewPostText}
-                addPost={props.addPost}
                 posts={props.state.profilePage.posts}
               />
             }
