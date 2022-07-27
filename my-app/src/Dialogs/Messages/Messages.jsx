@@ -1,4 +1,7 @@
-import { sendMessageAC, updateNewMessageTextAC } from '../../redux/state'
+import {
+  sendMessageAC,
+  updateNewMessageTextAC,
+} from '../../redux/dialogs-reducer'
 import Message from './Message/Message'
 import s from './Messages.module.css'
 
