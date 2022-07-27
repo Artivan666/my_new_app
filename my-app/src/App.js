@@ -28,8 +28,10 @@ const App = (props) => {
             path="/messages"
             element={
               <Dialogs
+                dispatch={props.dispatch}
                 dialogs={props.state.dialogsPage.dialogs}
                 messages={props.state.dialogsPage.messages}
+                newMessageText={props.state.dialogsPage.newMessageText}
               />
             }
           />
