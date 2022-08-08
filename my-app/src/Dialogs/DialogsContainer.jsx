@@ -2,10 +2,11 @@ import { connect } from 'react-redux'
 import { sendMessageAC, updateNewMessageTextAC } from '../redux/dialogs-reducer'
 import Dialogs from './Dialogs'
 
+// перерисовка каждый раз когда один из этих трех объктов меняется (копируется)
 const mapStateToProps = (state) => ({
   dialogs: state.dialogsPage.dialogs,
   messages: state.dialogsPage.messages,
-  newMessgeText: state.dialogsPage.newMessageText,
+  newMessageText: state.dialogsPage.newMessageText,
 })
 
 const mapDispatchToProps = (dispatch) => ({
