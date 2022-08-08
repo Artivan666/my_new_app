@@ -17,6 +17,11 @@ const Navigation = (props) => {
         </NavLink>
       </div>
       <div className={s.nav_item}>
+        <NavLink to="/users" className={setActive}>
+          Users
+        </NavLink>
+      </div>
+      <div className={s.nav_item}>
         <NavLink to="/settings" className={setActive}>
           Settings
         </NavLink>
