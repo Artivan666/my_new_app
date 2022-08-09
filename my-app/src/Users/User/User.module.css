@@ -1,0 +1,15 @@
+.user_box {
+  border: 1px solid black;
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.img_box {
+  border: 1px solid black;
+  display: inline-block;
+}
+
+img {
+  width: 50px;
+}

@@ -1,64 +1,27 @@
-import s from './Users.module.css'
+import axios from 'axios'
+import User from './User/User'
 
 const Users = (props) => {
   if (!props.users.length) {
-    props.setUsers([
-      {
-        id: 1,
-        photoURL: 'https://тайна-вашего-имени.рф/img/imena/dmitriy.jpg',
-        followed: false,
-        fullName: 'Dmitry',
-        status: 'Boss',
-        location: { city: 'Moskow', country: 'Russia' },
-      },
-      {
-        id: 2,
-        photoURL: 'https://тайна-вашего-имени.рф/img/imena/dmitriy.jpg',
-        followed: true,
-        fullName: 'Ivan',
-        status: 'Boss',
-        location: { city: 'Moskow', country: 'Russia' },
-      },
-      {
-        id: 3,
-        photoURL: 'https://тайна-вашего-имени.рф/img/imena/dmitriy.jpg',
-        followed: false,
-        fullName: 'Sasha',
-        status: 'Boss',
-        location: { city: 'Moskow', country: 'Russia' },
-      },
-    ])
+    axios
+      .get('https://social-network.samuraijs.com/api/1.0/users')
+      .then((res) => {
+        props.setUsers(res.data.items)
+      })
   }
 
   return (
     <div>
       {props.users.map((u) => (
-        <div key={u.id} className={s.user_box}>
-          <div className={s.user_avatar}>
-            <img src={u.photoURL} />
-          </div>
-          <div className={s.user_name}></div>
-          <div>Status</div>
-          <div>
-            {u.followed ? (
-              <button
-                onClick={() => {
-                  props.unfollow(u.id)
-                }}
-              >
-                True
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  props.follow(u.id)
-                }}
-              >
-                False
-              </button>
-            )}
-          </div>
-        </div>
+        <User
+          id={u.id}
+          follow={props.follow}
+          unfollow={props.unfollow}
+          followed={u.followed}
+          name={u.name}
+          photo={u.photos.small}
+          status={u.status}
+        />
       ))}
     </div>
   )
