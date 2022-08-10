@@ -1,0 +1,13 @@
+.pagination {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.pagination button {
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.pagination button.selected {
+  border: 1px solid red;
+}
