@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import s from './User.module.css'
 
 // followed: false
@@ -11,13 +12,15 @@ const User = (props) => {
   return (
     <div className={s.user_box}>
       <div className={s.img_box}>
-        <img
-          src={
-            props.photo
-              ? props.photo
-              : 'https://www.clevelanddentalhc.com/wp-content/uploads/2018/03/sample-avatar.jpg'
-          }
-        />
+        <NavLink to={'/profile/' + props.id}>
+          <img
+            src={
+              props.photo
+                ? props.photo
+                : 'https://www.clevelanddentalhc.com/wp-content/uploads/2018/03/sample-avatar.jpg'
+            }
+          />
+        </NavLink>
       </div>
       <div>{props.name}</div>
       <div>

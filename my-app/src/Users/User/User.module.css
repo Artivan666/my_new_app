@@ -10,6 +10,6 @@
   display: inline-block;
 }
 
-img {
+.img_box img {
   width: 50px;
 }
