@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { NavLink } from 'react-router-dom'
 import s from './User.module.css'
 
@@ -9,6 +10,42 @@ import s from './User.module.css'
 // uniqueUrlName: null
 
 const User = (props) => {
+  const follow = (userId) => {
+    console.log('follow')
+    axios
+      .post(
+        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            'API-KEY': 'e5f2c05d-3abf-4136-95a0-734ede57770a',
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.resultCode == 0) {
+          props.follow(userId)
+        }
+      })
+  }
+
+  const unfollow = (userId) => {
+    console.log('unfollow')
+    axios
+      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+        withCredentials: true,
+        headers: {
+          'API-KEY': 'e5f2c05d-3abf-4136-95a0-734ede57770a',
+        },
+      })
+      .then((res) => {
+        if (res.data.resultCode == 0) {
+          props.unfollow(userId)
+        }
+      })
+  }
+
   return (
     <div className={s.user_box}>
       <div className={s.img_box}>
@@ -27,7 +64,7 @@ const User = (props) => {
         {props.followed ? (
           <button
             onClick={() => {
-              props.unfollow(props.id)
+              unfollow(props.id)
             }}
           >
             Unfollow
@@ -35,7 +72,7 @@ const User = (props) => {
         ) : (
           <button
             onClick={() => {
-              props.follow(props.id)
+              follow(props.id)
             }}
           >
             Follow
