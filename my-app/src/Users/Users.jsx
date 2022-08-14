@@ -34,6 +34,8 @@ const Users = (props) => {
           name={u.name}
           photo={u.photos.small}
           status={u.status}
+          followingInProgress={props.followingInProgress}
+          toggleFollowingProgress={props.toggleFollowingProgress}
         />
       ))}
     </div>
