@@ -1,38 +1,22 @@
 import { connect } from 'react-redux'
 import {
   follow,
-  setCurrentPage,
-  setTotalUsersCount,
-  setUsers,
+  getUsers,
   toggleFollowingProgress,
-  toggleIsFetching,
   unfollow,
 } from '../redux/users-reducer'
 import React from 'react'
 import Users from './Users'
 import Preloader from '../common/Preloader/Preloader'
-import { usersAPI } from '../api/api'
 
 class UsersAPIComponent extends React.Component {
   // срабатывает один раз, при загрузке страницы
   componentDidMount() {
-    this.props.toggleIsFetching(true)
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((data) => {
-        this.props.toggleIsFetching(false)
-        this.props.setUsers(data.items)
-        this.props.setTotalUsersCount(data.totalCount)
-      })
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber)
-    this.props.toggleIsFetching(true)
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
-      this.props.toggleIsFetching(false)
-      this.props.setUsers(data.items)
-    })
+    this.props.getUsers(pageNumber, this.props.pageSize)
   }
 
   render() {
@@ -67,13 +51,10 @@ const mapStateToProps = (state) => ({
 })
 
 const UsersContainer = connect(mapStateToProps, {
-  setUsers,
   follow,
   unfollow,
-  setCurrentPage,
-  setTotalUsersCount,
-  toggleIsFetching,
   toggleFollowingProgress,
+  getUsers, // thunkCreatore
 })(UsersAPIComponent)
 
 export default UsersContainer

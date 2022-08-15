@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/api'
+
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const ADD_POST = 'ADD_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -63,3 +65,13 @@ export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 })
+
+// thunk
+
+export const getUserProfile = (userId) => {
+  return (dispatch) => {
+    usersAPI.getUserProfile(userId).then((res) => {
+      dispatch(setUserProfile(res.data))
+    })
+  }
+}

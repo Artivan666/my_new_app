@@ -1,35 +1,13 @@
-import { upload } from '@testing-library/user-event/dist/upload'
-import axios from 'axios'
 import { NavLink } from 'react-router-dom'
-import { usersAPI } from '../../api/api'
 import s from './User.module.css'
-
-// followed: false
-// id: 25339
-// name: "av3210"
-// photos: {small: null, large: null}
-// status: null
-// uniqueUrlName: null
 
 const User = (props) => {
   const follow = (userId) => {
-    props.toggleFollowingProgress(true, userId)
-    usersAPI.follow(userId).then((res) => {
-      if (res.data.resultCode == 0) {
-        props.follow(userId)
-      }
-      props.toggleFollowingProgress(false, userId)
-    })
+    props.follow(userId)
   }
 
   const unfollow = (userId) => {
-    props.toggleFollowingProgress(true, userId)
-    usersAPI.unfollow(userId).then((res) => {
-      if (res.data.resultCode == 0) {
-        props.unfollow(userId)
-      }
-      props.toggleFollowingProgress(false, userId)
-    })
+    props.unfollow(userId)
   }
 
   return (
