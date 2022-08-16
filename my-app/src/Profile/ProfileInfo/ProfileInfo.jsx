@@ -1,4 +1,5 @@
 import Preloader from '../../common/Preloader/Preloader'
+import Status from '../../Status/Status'
 import s from './ProfileInfo.module.css'
 
 const ProfileInfo = (props) => {
@@ -12,6 +13,12 @@ const ProfileInfo = (props) => {
         <img src={props.profile.photos.large} />
       </div>
       <div>{props.profile.fullName}</div>
+      <div>
+        <Status
+          status={props.status}
+          updateUserStatus={props.updateUserStatus}
+        />
+      </div>
       <div>Обо мне: {props.profile.aboutMe}</div>
     </div>
   )
