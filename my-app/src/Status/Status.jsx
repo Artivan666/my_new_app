@@ -26,6 +26,15 @@ class Status extends React.Component {
     })
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(prevProps.status !== this.props.status) {
+  //     this.setState({
+  //       status: this.props.status
+  //     })
+  //   }
+  //   console.log('update')
+  // }
+
   render() {
     return (
       <div className={s.status}>
