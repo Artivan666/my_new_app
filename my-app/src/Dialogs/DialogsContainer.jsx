@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withAuthRedirect } from '../hoc/withAuthRedirect'
-import { sendMessageAC, updateNewMessageTextAC } from '../redux/dialogs-reducer'
+import { sendMessageAC } from '../redux/dialogs-reducer'
 import Dialogs from './Dialogs'
 
 // перерисовка каждый раз когда один из этих трех объктов меняется (копируется)
@@ -13,11 +13,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onNewMessageChange(text) {
-    dispatch(updateNewMessageTextAC(text))
-  },
-  onSendMessageClick() {
-    dispatch(sendMessageAC())
+  onSendMessageClick(newMessage) {
+    dispatch(sendMessageAC(newMessage))
   },
 })
 export default compose(
