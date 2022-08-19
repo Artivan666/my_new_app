@@ -1,6 +1,6 @@
 import s from './FormsControl.module.css'
 
-const Textarea = ({ input, meta, ...props }) => {
+export const Textarea = ({ input, meta, ...props }) => {
   const hasError = meta.touched && meta.error
 
   return (
@@ -11,6 +11,13 @@ const Textarea = ({ input, meta, ...props }) => {
   )
 }
 
-export default Textarea
+export const Input = ({ input, meta, ...props }) => {
+  const hasError = meta.touched && meta.error
 
-// сделать контрол для Input
+  return (
+    <div className={s.formControl + ' ' + (hasError ? s.error : null)}>
+      <input {...input} {...props} />
+      {hasError ? <span>{meta.error}</span> : null}
+    </div>
+  )
+}

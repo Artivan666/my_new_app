@@ -1,0 +1,6 @@
+.overallFormError {
+  border: 2px solid red;
+  width: 200px;
+  padding: 5px;
+  color: red;
+}

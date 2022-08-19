@@ -1,5 +1,5 @@
 import { Field, reduxForm } from 'redux-form'
-import Textarea from '../common/formsControl/FormsControl'
+import { Textarea } from '../common/formsControl/FormsControl'
 import { maxLengthCreator, requiredField } from '../utils/validators/validators'
 import Dialog from './Dialog/Dialog'
 import s from './Dialogs.module.css'
