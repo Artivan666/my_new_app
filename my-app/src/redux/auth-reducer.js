@@ -34,15 +34,14 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 
 // thunk
 
-export const authMe = () => {
-  return (dispatch) => {
-    usersAPI.authMe().then((res) => {
-      if (res.data.resultCode === 0) {
-        let { id, email, login } = res.data.data
-        dispatch(setAuthUserData(id, email, login, true))
-      }
-    })
-  }
+// get auth user data
+export const authMe = () => (dispatch) => {
+  return usersAPI.authMe().then((res) => {
+    if (res.data.resultCode === 0) {
+      let { id, email, login } = res.data.data
+      dispatch(setAuthUserData(id, email, login, true))
+    }
+  })
 }
 
 export const login = (email, password, rememberMe) => (dispatch) => {

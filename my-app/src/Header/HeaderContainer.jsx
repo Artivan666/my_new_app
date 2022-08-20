@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from './Header'
 import { connect } from 'react-redux'
-import { authMe, logout } from '../redux/auth-reducer'
+import { logout } from '../redux/auth-reducer'
 
 class HeaderContainer extends React.Component {
-  componentDidMount() {
-    this.props.authMe()
-  }
+  // componentDidMount() {
+  //   this.props.authMe()
+  // }
 
   render() {
     // if (this.props.isAuth == false) return <Navigate to="/login" />
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => ({
   login: state.auth.login,
 })
 
-export default connect(mapStateToProps, { authMe, logout })(HeaderContainer)
+export default connect(mapStateToProps, { logout })(HeaderContainer)
