@@ -8,6 +8,14 @@ import {
 import React from 'react'
 import Users from './Users'
 import Preloader from '../common/Preloader/Preloader'
+import {
+  getCurrentPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsersFromState,
+} from '../redux/users-selectors'
 
 class UsersAPIComponent extends React.Component {
   // срабатывает один раз, при загрузке страницы
@@ -39,17 +47,17 @@ class UsersAPIComponent extends React.Component {
   }
 }
 
-// срабатывает всегда
+// срабатывает всегда при изменении в стэйт
+// формирует объект из свойств и сравнивает с объектом котороый уже был до изменений в стэйт
 // но компонент перерисовывается только если приходит объект с новыми свойствами (значениями)
 const mapStateToProps = (state) => ({
-  users: state.usersPage.users,
-  pageSize: state.usersPage.pageSize,
-  totalUsersCount: state.usersPage.totalUsersCount,
-  currentPage: state.usersPage.currentPage,
-  isFetching: state.usersPage.isFetching,
-  followingInProgress: state.usersPage.followingInProgress,
+  users: getUsersFromState(state),
+  pageSize: getPageSize(state),
+  totalUsersCount: getTotalUsersCount(state),
+  currentPage: getCurrentPage(state),
+  isFetching: getIsFetching(state),
+  followingInProgress: getFollowingInProgress(state),
 })
-
 const UsersContainer = connect(mapStateToProps, {
   follow,
   unfollow,

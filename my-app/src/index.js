@@ -9,6 +9,10 @@ import { Provider } from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
+// setInterval(() => {
+//   store.dispatch({ type: 'FAKE' })
+// }, 5000)
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

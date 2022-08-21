@@ -15,10 +15,13 @@ const initialState = {
   currentPage: 1,
   isFetching: false,
   followingInProgress: [],
+  fake: 1,
 }
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'FAKE':
+      return { ...state, fake: state.fake + 1 }
     case SET_USERS:
       return {
         ...state,
@@ -105,14 +108,14 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
 
 // thunk
 
-export const getUsers = (currentPage, pageSize) => {
+export const getUsers = (page, pageSize) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true))
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
+    usersAPI.getUsers(page, pageSize).then((data) => {
       dispatch(toggleIsFetching(false))
       dispatch(setUsers(data.items))
       dispatch(setTotalUsersCount(data.totalCount))
-      dispatch(setCurrentPage(currentPage))
+      dispatch(setCurrentPage(page))
     })
   }
 }
