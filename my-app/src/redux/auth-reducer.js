@@ -35,35 +35,34 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 // thunk
 
 // get auth user data
-export const authMe = () => (dispatch) => {
-  return usersAPI.authMe().then((res) => {
-    if (res.data.resultCode === 0) {
-      let { id, email, login } = res.data.data
-      dispatch(setAuthUserData(id, email, login, true))
-    }
-  })
+export const authMe = () => async (dispatch) => {
+  const res = await usersAPI.authMe()
+
+  if (res.data.resultCode === 0) {
+    let { id, email, login } = res.data.data
+    dispatch(setAuthUserData(id, email, login, true))
+  }
 }
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-  usersAPI.login(email, password, rememberMe).then((res) => {
-    if (res.data.resultCode === 0) {
-      dispatch(authMe())
-    } else {
-      const message =
-        res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
-      dispatch(stopSubmit('loginForm', { _error: message }))
+export const login = (email, password, rememberMe) => async (dispatch) => {
+  const res = await usersAPI.login(email, password, rememberMe)
 
-      // dispatch(
-      //   stopSubmit('loginForm', { _error: 'Email or password is incorrect' })
-      // )
-    }
-  })
+  if (res.data.resultCode === 0) {
+    dispatch(authMe())
+  } else {
+    const message =
+      res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+    dispatch(stopSubmit('loginForm', { _error: message }))
+  }
+  // dispatch(
+  //   stopSubmit('loginForm', { _error: 'Email or password is incorrect' })
+  // )
 }
 
-export const logout = () => (dispatch) => {
-  usersAPI.logout().then((res) => {
-    if (res.data.resultCode === 0) {
-      dispatch(setAuthUserData(null, null, null, false))
-    }
-  })
+export const logout = () => async (dispatch) => {
+  const res = await usersAPI.logout()
+
+  if (res.data.resultCode === 0) {
+    dispatch(setAuthUserData(null, null, null, false))
+  }
 }

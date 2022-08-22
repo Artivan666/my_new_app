@@ -1,5 +1,6 @@
 import s from './Users.module.css'
 import User from './User/User'
+import Paginator from './User/Paginator/Paginator'
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -10,20 +11,13 @@ const Users = (props) => {
   }
 
   return (
-    <div>
-      <div className={s.pagination}>
-        {pages.map((p) => (
-          <button
-            key={p}
-            className={props.currentPage == p ? s.selected : null}
-            onClick={() => {
-              props.onPageChanged(p)
-            }}
-          >
-            {p}
-          </button>
-        ))}
-      </div>
+    <div className={s.users}>
+      <Paginator
+        totalUsersCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+        onPageChanged={props.onPageChanged}
+      />
       {props.users.map((u) => (
         <User
           key={u.id}
