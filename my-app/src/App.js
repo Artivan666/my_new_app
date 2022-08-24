@@ -2,16 +2,18 @@ import './App.css'
 import Footer from './Footer/Footer'
 import Sidebar from './Sidebar/Sidebar'
 import { Routes, Route } from 'react-router-dom'
-import Settings from './Settings/Settings'
-import DialogsContainer from './Dialogs/DialogsContainer'
+// import Settings from './Settings/Settings'
+// import DialogsContainer from './Dialogs/DialogsContainer'
 import UsersContainer from './Users/UsersContainer'
 import ProfileContainer from './Profile/ProfileContainer'
 import HeaderContainer from './Header/HeaderContainer'
 import Login from './Login/Login'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { connect } from 'react-redux'
 import { initialize } from './redux/app-reducer'
-import Preloader from './common/Preloader/Preloader'
+// Lazy
+const Settings = React.lazy(() => import('./Settings/Settings'))
+const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'))
 
 class App extends React.Component {
   componentDidMount() {
@@ -33,9 +35,23 @@ class App extends React.Component {
             <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:userId" element={<ProfileContainer />} />
-            <Route path="/messages" element={<DialogsContainer />} />
+            <Route
+              path="/messages"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <DialogsContainer />
+                </Suspense>
+              }
+            />
             <Route path="/users" element={<UsersContainer />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route
+              path="/settings"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Settings />
+                </Suspense>
+              }
+            />
           </Routes>
         </div>
         <Footer />
