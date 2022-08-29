@@ -2,6 +2,7 @@ import Preloader from '../../common/Preloader/Preloader'
 import Status from '../../Status/Status'
 import StatusWitnHooks from '../../Status/StatusWithHooks'
 import s from './ProfileInfo.module.css'
+import Avatar from './Avatar/Avatar'
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -10,15 +11,20 @@ const ProfileInfo = (props) => {
 
   return (
     <div className={s.profileInfo}>
-      <div>
-        <img src={props.profile.photos.large} />
-      </div>
+      <Avatar
+        // userId={props.userId}
+        // authUserId={props.authUserId}
+        photo={props.profile.photos.large}
+        isOwner={props.isOwner}
+        savePhoto={props.savePhoto}
+      />
       <div>{props.profile.fullName}</div>
       <div>
         {/* <Status
           status={props.status}
           updateUserStatus={props.updateUserStatus}
         /> */}
+
         <StatusWitnHooks
           status={props.status}
           updateUserStatus={props.updateUserStatus}
