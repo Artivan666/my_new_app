@@ -3,8 +3,19 @@ import Status from '../../Status/Status'
 import StatusWitnHooks from '../../Status/StatusWithHooks'
 import s from './ProfileInfo.module.css'
 import Avatar from './Avatar/Avatar'
+import { useState } from 'react'
+import ProfileData from './ProfileData/ProfileData'
+import ProfileDataReduxForm from './ProfileDataForm/ProfileDataForm'
 
 const ProfileInfo = (props) => {
+  let [editMode, setEditMode] = useState(false)
+
+  const onSubmit = (formData) => {
+    props.saveProfile(formData).then(() => {
+      setEditMode(false)
+    })
+  }
+
   if (!props.profile) {
     return <Preloader />
   }
@@ -30,7 +41,21 @@ const ProfileInfo = (props) => {
           updateUserStatus={props.updateUserStatus}
         />
       </div>
-      <div>Обо мне: {props.profile.aboutMe}</div>
+      {editMode ? (
+        <ProfileDataReduxForm
+          initialValues={props.profile}
+          onSubmit={onSubmit}
+          profile={props.profile}
+        />
+      ) : (
+        <ProfileData
+          profile={props.profile}
+          isOwner={props.isOwner}
+          activateEditMode={() => {
+            setEditMode(true)
+          }}
+        />
+      )}
     </div>
   )
 }

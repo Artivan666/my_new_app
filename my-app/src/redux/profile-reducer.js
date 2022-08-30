@@ -1,3 +1,4 @@
+import { stopSubmit } from 'redux-form'
 import { usersAPI } from '../api/api'
 
 const ADD_POST = 'ADD_POST'
@@ -86,7 +87,7 @@ const setStatus = (status) => ({
 const savePhotoSuccess = (photo) => ({ type: SAVE_PHOTO, photo })
 
 // thunk
-
+// возвращает промис
 export const getUserProfile = (userId) => async (dispatch) => {
   const res = await usersAPI.getUserProfile(userId)
 
@@ -113,5 +114,24 @@ export const savePhoto = (photo) => async (dispatch) => {
 
   if (res.data.resultCode == 0) {
     dispatch(savePhotoSuccess(res.data.data.photos))
+  }
+}
+
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId
+  const res = await usersAPI.saveProfile(profile)
+
+  if (res.data.resultCode == 0) {
+    dispatch(getUserProfile(userId))
+  } else {
+    // const message =
+    //   res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+    // dispatch(stopSubmit('profileDataForm', { _error: 'Some error' }))
+    dispatch(
+      stopSubmit('profileDataForm', {
+        contacts: { facebook: res.data.messages[0] },
+      })
+    )
+    return Promise.reject(res.data.messages[0])
   }
 }
