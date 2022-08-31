@@ -135,3 +135,8 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     return Promise.reject(res.data.messages[0])
   }
 }
+
+// использование try catch
+// try {
+//   api request
+// } catch(error) {debbuger}

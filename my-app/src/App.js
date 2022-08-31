@@ -1,7 +1,7 @@
 import './App.css'
 import Footer from './Footer/Footer'
 import Sidebar from './Sidebar/Sidebar'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 // import Settings from './Settings/Settings'
 // import DialogsContainer from './Dialogs/DialogsContainer'
 import UsersContainer from './Users/UsersContainer'
@@ -16,6 +16,7 @@ const Settings = React.lazy(() => import('./Settings/Settings'))
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'))
 
 class App extends React.Component {
+  // здесь можно делать сайд эффект
   componentDidMount() {
     this.props.initialize()
   }
@@ -27,14 +28,15 @@ class App extends React.Component {
 
     return (
       <div className="app_wrapper">
-        =
         <HeaderContainer />
         <Sidebar />
         <div className="content">
           <Routes>
+            <Route path="/" element={<Navigate to="/profile" />} />
             <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:userId" element={<ProfileContainer />} />
+            <Route path="*" element={<div>404 Not found</div>} />
             <Route
               path="/messages"
               element={
