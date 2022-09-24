@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import {
+  filterType,
   follow,
   getUsers,
   // toggleFollowingProgress,
@@ -16,6 +17,7 @@ import {
   getPageSize,
   getPortionSize,
   getTotalUsersCount,
+  getUsersFilter,
   getUsersFromState,
 } from '../redux/users-selectors'
 import { appStateType } from '../redux/redux-store'
@@ -24,17 +26,23 @@ class UsersAPIComponent extends React.Component<propsType> {
   // optional type stateType
   // срабатывает один раз, при загрузке страницы
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    const { currentPage, pageSize, filter } = this.props
+    this.props.getUsers(currentPage, pageSize, filter)
   }
 
   onPageChanged = (pageNumber: number) => {
-    this.props.getUsers(pageNumber, this.props.pageSize)
+    const { pageSize, filter } = this.props
+    this.props.getUsers(pageNumber, pageSize, filter)
+  }
+
+  onFilterChanged = (filter: filterType) => {
+    const { pageSize } = this.props
+    this.props.getUsers(1, pageSize, filter)
   }
 
   render() {
     return (
       <>
-        <div>{this.props.pageTitle}</div>
         <Preloader isFetching={this.props.isFetching} />
         <Users
           totalUsersCount={this.props.totalUsersCount}
@@ -44,9 +52,9 @@ class UsersAPIComponent extends React.Component<propsType> {
           onPageChanged={this.onPageChanged}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
-          // toggleFollowingProgress={this.props.toggleFollowingProgress}
           followingInProgress={this.props.followingInProgress}
           portionSize={this.props.portionSize}
+          onFilterChanged={this.onFilterChanged}
         />
       </>
     )
@@ -64,6 +72,7 @@ const mapStateToProps = (state: appStateType): mapStatePropsType => ({
   isFetching: getIsFetching(state),
   followingInProgress: getFollowingInProgress(state),
   portionSize: getPortionSize(state),
+  filter: getUsersFilter(state),
 })
 const UsersContainer = connect<
   mapStatePropsType,
@@ -88,16 +97,15 @@ type mapStatePropsType = {
   users: Array<userType>
   followingInProgress: Array<number>
   portionSize: number
+  filter: filterType
 }
 
 type mapDispatchPropsType = {
-  getUsers: (currentPage: number, pageSize: number) => void
+  getUsers: (currentPage: number, pageSize: number, filter: filterType) => void
   follow: (userId: number) => void
   unfollow: (userId: number) => void
 }
 
-type ownPropsType = {
-  pageTitle: string
-}
+type ownPropsType = {}
 
 type propsType = mapStatePropsType & mapDispatchPropsType & ownPropsType

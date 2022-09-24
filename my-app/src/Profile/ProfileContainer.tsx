@@ -17,7 +17,6 @@ class ProfileContainer extends React.Component<propsType> {
   refreshProfile() {
     let userId = this.props.userId
     console.log('refreshProfile ' + userId)
-    debugger
 
     if (!userId) {
       console.log('ID should exists')
@@ -28,7 +27,6 @@ class ProfileContainer extends React.Component<propsType> {
   }
 
   componentDidMount() {
-    debugger
     this.refreshProfile()
   }
 

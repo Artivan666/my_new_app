@@ -13,7 +13,12 @@ const initialState = {
   isFetching: false,
   followingInProgress: [] as Array<number>,
   portionSize: 10,
+  filter: {
+    term: '',
+    friend: null as null | boolean,
+  },
 }
+
 const usersReducer = (
   state: initialStateType = initialState,
   action: actionsTypes
@@ -73,6 +78,12 @@ const usersReducer = (
           : state.followingInProgress.filter((id) => id != action.userId),
       }
 
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
+      }
+
     default:
       return state
   }
@@ -103,6 +114,12 @@ export const actions = {
     ({
       type: 'SET_CURRENT_PAGE',
       currentPage,
+    } as const),
+
+  setFilter: (filter: filterType) =>
+    ({
+      type: 'SET_FILTER',
+      payload: filter,
     } as const),
 
   setTotalUsersCount: (totalUsersCount: number) =>
@@ -146,10 +163,16 @@ type getStateType = () => appStateType
 
 // second version of typing
 export const getUsers =
-  (page: number, pageSize: number): thunkType =>
+  (page: number, pageSize: number, filter: filterType): thunkType =>
   async (dispatch) => {
     dispatch(actions.toggleIsFetching(true))
-    const res = await usersAPI.getUsers(page, pageSize)
+    dispatch(actions.setFilter(filter))
+    const res = await usersAPI.getUsers(
+      page,
+      pageSize,
+      filter.term,
+      filter.friend
+    )
 
     dispatch(actions.toggleIsFetching(false))
     dispatch(actions.setUsers(res.items))
@@ -165,7 +188,6 @@ const followUnfollow = async (
 ) => {
   dispatch(actions.toggleFollowingProgress(true, userId))
   const res = await apiMethod(userId)
-  console.log('resultCode: ' + res.resultCode)
   if (res.resultCode == 0) {
     dispatch(actionCreator(userId))
   }
@@ -178,7 +200,7 @@ export const follow =
     const apiMethod = usersAPI.follow.bind(usersAPI)
     const actionCreator = actions.followSuccess
 
-    await followUnfollow(dispatch, userId, apiMethod, actionCreator)
+    followUnfollow(dispatch, userId, apiMethod, actionCreator)
   }
 
 export const unfollow =
@@ -192,7 +214,7 @@ export const unfollow =
 
 // ---------------------------------------- types --------------------------
 
-export type initialStateType = typeof initialState
+type initialStateType = typeof initialState
 
 type actionsTypes = inferActionTypes<typeof actions>
 
@@ -205,3 +227,5 @@ export type userType = {
   photos: photosType
   followed: boolean
 }
+
+export type filterType = typeof initialState.filter

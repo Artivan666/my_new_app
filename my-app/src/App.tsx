@@ -46,10 +46,7 @@ class App extends React.Component<mapStatePropsType & mapDispatchPropsType> {
                 </Suspense>
               }
             />
-            <Route
-              path="/users"
-              element={<UsersContainer pageTitle={'Hello!'} />}
-            />
+            <Route path="/users" element={<UsersContainer />} />
             <Route
               path="/settings"
               element={
