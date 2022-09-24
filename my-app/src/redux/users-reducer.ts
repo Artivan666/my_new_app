@@ -14,7 +14,6 @@ const initialState = {
   followingInProgress: [] as Array<number>,
   portionSize: 10,
 }
-
 const usersReducer = (
   state: initialStateType = initialState,
   action: actionsTypes
@@ -166,6 +165,7 @@ const followUnfollow = async (
 ) => {
   dispatch(actions.toggleFollowingProgress(true, userId))
   const res = await apiMethod(userId)
+  console.log('resultCode: ' + res.resultCode)
   if (res.resultCode == 0) {
     dispatch(actionCreator(userId))
   }
@@ -178,7 +178,7 @@ export const follow =
     const apiMethod = usersAPI.follow.bind(usersAPI)
     const actionCreator = actions.followSuccess
 
-    followUnfollow(dispatch, userId, apiMethod, actionCreator)
+    await followUnfollow(dispatch, userId, apiMethod, actionCreator)
   }
 
 export const unfollow =
@@ -192,7 +192,7 @@ export const unfollow =
 
 // ---------------------------------------- types --------------------------
 
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 
 type actionsTypes = inferActionTypes<typeof actions>
 

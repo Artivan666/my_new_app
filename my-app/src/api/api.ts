@@ -104,7 +104,7 @@ export const usersAPI = {
 
 // types
 
-type responseType<D = {}, RC = resultCodeEnum> = {
+export type responseType<D = {}, RC = resultCodeEnum> = {
   // D = {} Означает что параметр равен пустому типу (объекту)
   data: D // D - object with data
   messages: Array<string>
