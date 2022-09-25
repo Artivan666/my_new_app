@@ -32,7 +32,6 @@ class ProfileContainer extends React.Component<propsType> {
 
   componentDidUpdate(prevProps: propsType, prevState: propsType) {
     console.log(this.props.userId == prevProps.userId)
-    debugger
     if (this.props.userId != prevProps.userId) {
       debugger
       this.refreshProfile()

@@ -44,6 +44,10 @@ beforeEach(() => {
     isFetching: false,
     followingInProgress: [],
     portionSize: 10,
+    filter: {
+      term: '',
+      friend: null as null | boolean,
+    },
   }
 })
 

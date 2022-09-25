@@ -214,7 +214,7 @@ export const unfollow =
 
 // ---------------------------------------- types --------------------------
 
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 
 type actionsTypes = inferActionTypes<typeof actions>
 

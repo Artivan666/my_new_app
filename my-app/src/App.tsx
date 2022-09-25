@@ -4,9 +4,9 @@ import Sidebar from './Sidebar/Sidebar'
 import { Route, Navigate, Routes } from 'react-router-dom'
 // import Settings from './Settings/Settings'
 // import DialogsContainer from './Dialogs/DialogsContainer'
-import UsersContainer from './Users/UsersContainer'
+import { UsersPage } from './Users/UsersContainer'
 import ProfileContainer from './Profile/ProfileContainer'
-import Login from './Login/Login'
+import { Login } from './Login/Login'
 import React, { Suspense } from 'react'
 import { connect } from 'react-redux'
 import { initialize } from './redux/app-reducer'
@@ -46,7 +46,7 @@ class App extends React.Component<mapStatePropsType & mapDispatchPropsType> {
                 </Suspense>
               }
             />
-            <Route path="/users" element={<UsersContainer />} />
+            <Route path="/users" element={<UsersPage />} />
             <Route
               path="/settings"
               element={

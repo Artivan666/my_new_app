@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { createField, Input } from '../common/formsControl/FormsControl'
@@ -71,9 +71,27 @@ const LoginReduxForm = reduxForm<loginFormValuesType, loginFormOwnPropsType>({
   form: 'loginForm',
 })(LoginForm)
 
-const Login: React.FC<propsType> = (props) => {
+export const Login: React.FC = () => {
+  const captchaUrl = useSelector((state: appStateType) => state.auth.captchaUrl)
+  const isAuth = useSelector((state: appStateType) => state.auth.isAuth)
+
+  const dispatch = useDispatch()
+
+  const loginCB = (
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string | null
+  ) => {
+    dispatch(login(email, password, rememberMe, captcha) as any) // !!!!!!!!!!!!!!!
+  }
+
+  const logout = () => {
+    dispatch(logout() as any)
+  }
+
   const onSubmit = (formData: loginFormValuesType) => {
-    props.login(
+    loginCB(
       formData.email,
       formData.password,
       formData.rememberMe,
@@ -81,22 +99,15 @@ const Login: React.FC<propsType> = (props) => {
     )
   }
 
-  if (props.isAuth) return <Navigate to="/profile" />
+  if (isAuth) return <Navigate to="/profile" />
 
   return (
     <div className={s.login}>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
     </div>
   )
 }
-
-const mapStateToProps = (state: appStateType): mapStatePropsType => ({
-  isAuth: state.auth.isAuth,
-  captchaUrl: state.auth.captchaUrl,
-})
-
-export default connect(mapStateToProps, { login, logout })(Login)
 
 // ------------------------------ types ---------------------------------
 
@@ -115,19 +126,4 @@ type loginFormValuesType = {
 // type loginFormFieldsNameType = keyof loginFormValuesType
 type loginFormFieldsNameType = Extract<keyof loginFormValuesType, string>
 
-type mapStatePropsType = {
-  isAuth: boolean
-  captchaUrl: string | null
-}
-
-type mapDispatchPropsType = {
-  login: (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha: string | null
-  ) => void
-  logout: () => void
-}
-
-type propsType = mapStatePropsType & mapDispatchPropsType
+// type propsType = {}
