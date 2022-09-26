@@ -19,6 +19,11 @@ const Navigation: React.FC<propsType> = (props) => {
         </NavLink>
       </div>
       <div className={s.nav_item}>
+        <NavLink to="/chat" className={setActive}>
+          Chat
+        </NavLink>
+      </div>
+      <div className={s.nav_item}>
         <NavLink to="/users" className={setActive}>
           Users
         </NavLink>

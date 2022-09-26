@@ -1,0 +1,29 @@
+.messages_block {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+  height: 400px;
+  overflow: auto;
+}
+
+.new_message_block {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.message {
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.user_info {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.message_text {
+  padding: 5px;
+  margin-left: 10px;
+}

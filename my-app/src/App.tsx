@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import { initialize } from './redux/app-reducer'
 import { appStateType } from './redux/redux-store'
 import HeaderContainer from './Header/HeaderContainer'
+import { ChatPage } from './Chat/Chat'
 // Lazy
 const Settings = React.lazy(() => import('./Settings/Settings'))
 const DialogsContainer = React.lazy(() => import('./Dialogs/DialogsContainer'))
@@ -35,6 +36,7 @@ class App extends React.Component<mapStatePropsType & mapDispatchPropsType> {
           <Routes>
             <Route path="/" element={<Navigate to="/profile" />} />
             <Route path="/profile" element={<ProfileContainer />} />
+            <Route path="/chat" element={<ChatPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:userId" element={<ProfileContainer />} />
             <Route path="*" element={<div>404 Not found</div>} />
